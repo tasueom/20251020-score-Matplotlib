@@ -6,6 +6,18 @@
     <title>성적 프로그램</title>
 </head>
 <body>
-    
+    <h2>성적 프로그램</h2>
+    <h3>성적 입력하기</h3>
+    <form method="post" action="{{url_for('add_score')}}">
+        이름
+        <input type="text" name="sname" required><br>
+        국어
+        <input type="text" name="kor" required><br>
+        영어
+        <input type="text" name="eng" required><br>
+        수학
+        <input type="text" name="mat" required><br>
+        <button type="submit">입력하기</button>
+    </form>
 </body>
 </html>

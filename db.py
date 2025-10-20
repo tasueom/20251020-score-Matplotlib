@@ -39,3 +39,13 @@ def init_db():
                 """)
     conn.commit()
     conn.close()
+
+def insert_score(sname, kor, eng, mat):
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("""
+                insert into scores(sname, kor, eng, mat)
+                values(%s, %s, %s, %s)
+                """,(sname, kor, eng, mat))
+    conn.commit()
+    conn.close()
