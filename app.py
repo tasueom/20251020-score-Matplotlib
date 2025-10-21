@@ -18,7 +18,7 @@ def build_avg_plot():
     df = pd.DataFrame(rows, columns=["sname","kor","eng","mat","total","avg","rank"])
     cols = ["kor","eng","mat"]
     df = df[cols]
-    means = df.mean()
+    means = df.mean().round(2)
     x = np.arange(1,4)
     plt.figure()
     plt.bar(x,means.values, color=["#FF6B46","#51FF8B","#5599FF"])
