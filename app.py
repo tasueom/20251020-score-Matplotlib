@@ -24,7 +24,6 @@ def build_avg_plot():
     plt.bar(x,means.values, color=["#FF6B46","#51FF8B","#5599FF"])
     plt.ylim(0,100)
     plt.xticks(x, ["국어","영어","수학"])
-    plt.title("과목별 평균")
     plt.ylabel("점수")
     for i, value in enumerate(means.values):
         plt.text(x[i], value + 1, str(value), ha='center', va='bottom', color='black', fontsize=10)
