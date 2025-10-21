@@ -26,17 +26,19 @@ def build_avg_plot():
     plt.xticks(x, ["국어","영어","수학"])
     plt.title("과목별 평균")
     plt.ylabel("점수")
+    for i, value in enumerate(means.values):
+        plt.text(x[i], value + 1, str(value), ha='center', va='bottom', color='black', fontsize=10)
     out_path = os.path.join(app.root_path, "static", "img", "subject_avg.png")
     plt.savefig(out_path, bbox_inches="tight")
     plt.close()
-    return means.round(2).to_dict(), "subject_avg.png"
+    return "subject_avg.png"
 
 @app.route("/")
 def index():
     score_list = db.get_all_scores()
-    means, fname = build_avg_plot()
+    fname = build_avg_plot()
     img_url = url_for("static", filename=f"img/{fname}") + f"?v={int(time.time())}"
-    return ren("index.html", score_list=score_list, means=means, img_url=img_url)
+    return ren("index.html", score_list=score_list, img_url=img_url)
 
 @app.route("/add_score", methods=["POST"])
 def add_score():
