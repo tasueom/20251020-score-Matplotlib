@@ -22,7 +22,35 @@
                 <button type="submit">입력하기</button>
             </form>
         </div>
-        <div class="right content"></div>
+        <div class="right content">
+            <h3>전체 성적</h3>
+            {% if not score_list %}
+            <p class="noti">입력된 성적이 존재하지 않습니다.</p>
+            {% else %}
+            <table>
+                <tr>
+                    <th>이름</th>
+                    <th>국어</th>
+                    <th>영어</th>
+                    <th>수학</th>
+                    <th>총점</th>
+                    <th>평균</th>
+                    <th>석차</th>
+                </tr>
+                {% for s in score_list %}
+                <tr>
+                    <td>{{s[0]}}</td>
+                    <td>{{s[1]}}</td>
+                    <td>{{s[2]}}</td>
+                    <td>{{s[3]}}</td>
+                    <td>{{s[4]}}</td>
+                    <td>{{s[5]}}</td>
+                    <td>{{s[6]}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+        </div>
     </div>
 </body>
 </html>

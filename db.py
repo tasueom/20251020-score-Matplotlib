@@ -49,3 +49,14 @@ def insert_score(sname, kor, eng, mat):
                 """,(sname, kor, eng, mat))
     conn.commit()
     conn.close()
+
+def get_all_scores():
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("""
+                select
+                sname, kor, eng, mat, total, avg_score, srank
+                from scores
+                """)
+    rows = cur.fetchall()
+    return rows

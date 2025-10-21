@@ -5,7 +5,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return ren("index.html")
+    score_list = db.get_all_scores()
+    return ren("index.html", score_list=score_list)
 
 @app.route("/add_score", methods=["POST"])
 def add_score():
