@@ -10,17 +10,28 @@
     <div class="container">
         <div class="left content">
             <h3>성적 입력하기</h3>
-            <form method="post" action="{{url_for('add_score')}}">
-                이름
-                <input type="text" name="sname" required><br>
-                국어
-                <input type="text" name="kor" required><br>
-                영어
-                <input type="text" name="eng" required><br>
-                수학
-                <input type="text" name="mat" required><br>
-                <button type="submit">입력하기</button>
-            </form>
+            <div class="input_part">
+                <div class="form_input">
+                    <form method="post" action="{{url_for('add_score')}}">
+                        이름
+                        <input type="text" name="sname" required><br>
+                        국어
+                        <input type="text" name="kor" required><br>
+                        영어
+                        <input type="text" name="eng" required><br>
+                        수학
+                        <input type="text" name="mat" required><br>
+                        <button type="submit">입력하기</button>
+                    </form>
+                </div>
+                <div class="csv_input">
+                    <h3>성적 입력하기(CSV)</h3>
+                    <form method="post" action="{{url_for('add_csv')}}" enctype="multipart/form-data">
+                    <input type="file" name="file" accept=".csv,text/csv" required><br>
+                    <button type="submit">업로드</button>
+                    </form>
+                </div>
+            </div>
             <h3>과목별 평균</h3>
             <table border="1">
                 <tr>

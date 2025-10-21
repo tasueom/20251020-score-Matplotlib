@@ -47,6 +47,19 @@ def add_score():
     db.recalc_rank()
     return redirect(url_for('index'))
 
+@app.route("/add_csv", methods=['POST'])
+def add_csv():
+    file = request.files["file"]
+    df = pd.read_csv(file, encoding="utf-8-sig")  # 업로드된 파일 바로 읽기
+    for i in range(len(df)):
+        sname = df.iloc[i]["이름"]
+        kor = int(df.iloc[i]["국어"])
+        eng = int(df.iloc[i]["영어"])
+        mat = int(df.iloc[i]["수학"])
+        db.insert_score(sname, kor, eng, mat)
+    db.recalc_rank()
+    return redirect(url_for("index"))
+
 # Flask 서버 실행
 if __name__ == "__main__":
     db.init_db()
