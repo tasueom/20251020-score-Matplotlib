@@ -51,6 +51,9 @@
         </div>
         <div class="right content">
             <h3>전체 성적</h3>
+            <form action="{{url_for('export')}}">
+                <button type="submit">CSV로 내보내기</button>
+            </form>
             {% if not score_list %}
             <p class="noti">입력된 성적이 존재하지 않습니다.</p>
             {% else %}

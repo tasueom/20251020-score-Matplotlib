@@ -83,6 +83,17 @@ def add_csv():
     flash("CSV 업로드가 완료되었습니다.")
     return redirect(url_for("index"))
 
+@app.route("/export")
+def export():
+    rows = db.get_all_scores()
+    df = pd.DataFrame(rows, columns=["이름","국어","영어","수학","총점","평균","석차"])
+    try:
+        df.to_csv("scores.csv", encoding="utf-8-sig")
+        flash("내보내기 성공")
+    except:
+        flash("내보내기 도중 오류가 발생하였습니다.")
+    return redirect(url_for("index"))
+
 # Flask 서버 실행
 if __name__ == "__main__":
     db.init_db()
