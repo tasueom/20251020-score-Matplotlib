@@ -59,4 +59,5 @@ def get_all_scores():
                 from scores
                 """)
     rows = cur.fetchall()
+    conn.close()
     return rows
