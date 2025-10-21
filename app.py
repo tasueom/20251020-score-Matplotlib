@@ -43,6 +43,7 @@ def add_score():
     eng = int(request.form["eng"])
     mat = int(request.form["mat"])
     db.insert_score(sname, kor, eng, mat)
+    db.recalc_rank()
     return redirect(url_for('index'))
 
 # Flask 서버 실행

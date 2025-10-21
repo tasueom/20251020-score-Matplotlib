@@ -61,3 +61,17 @@ def get_all_scores():
     rows = cur.fetchall()
     conn.close()
     return rows
+
+def recalc_rank():
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("""
+        UPDATE scores s
+        JOIN (
+            SELECT sid, DENSE_RANK() OVER (ORDER BY avg_score DESC) AS r
+            FROM scores
+        ) t ON s.sid = t.sid
+        SET s.srank = t.r
+    """)
+    conn.commit()
+    conn.close()
