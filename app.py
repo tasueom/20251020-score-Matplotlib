@@ -1,5 +1,6 @@
 from flask import Flask, render_template as ren, request, redirect, url_for, flash
 import db
+import numpy as np, pandas as pd, matplotlib.pyplot as plt
 
 app = Flask(__name__)
 
