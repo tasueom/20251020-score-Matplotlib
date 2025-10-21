@@ -8,6 +8,12 @@
     <script src="{{ url_for('static', filename='js/check.js') }}"></script>
 </head>
 <body>
+    {% set messages = get_flashed_messages() %}
+    {% if messages %}
+    <script>
+        alert("{{ messages[0] }}");
+    </script>
+    {% endif %}
     <h2>성적 프로그램</h2>
     <div class="container">
         <div class="left content">

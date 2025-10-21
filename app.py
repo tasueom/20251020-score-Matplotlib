@@ -11,6 +11,7 @@ rc('font', family = font_name)
 plt.rcParams['axes.unicode_minus'] = False
 
 app = Flask(__name__)
+app.secret_key = "secret_key123"
 
 def build_avg_plot():
     rows = db.get_all_scores()
@@ -50,14 +51,35 @@ def add_score():
 @app.route("/add_csv", methods=['POST'])
 def add_csv():
     file = request.files["file"]
-    df = pd.read_csv(file, encoding="utf-8-sig")  # 업로드된 파일 바로 읽기
+    try:
+        df = pd.read_csv(file, encoding="utf-8-sig")
+    except Exception:
+        flash("CSV 파일을 읽는 중 오류가 발생했습니다.")
+        return redirect(url_for("index"))
+
+    required_cols = ["이름", "국어", "영어", "수학"]
+    if list(df.columns) != required_cols:
+        flash("CSV 칼럼명이 올바르지 않습니다. (이름, 국어, 영어, 수학 순서여야 합니다.)")
+        return redirect(url_for("index"))
+
     for i in range(len(df)):
         sname = df.iloc[i]["이름"]
-        kor = float(df.iloc[i]["국어"])
-        eng = float(df.iloc[i]["영어"])
-        mat = float(df.iloc[i]["수학"])
+        try:
+            kor = float(df.iloc[i]["국어"])
+            eng = float(df.iloc[i]["영어"])
+            mat = float(df.iloc[i]["수학"])
+        except ValueError:
+            flash(f"{sname} 행의 점수가 숫자가 아닙니다.")
+            return redirect(url_for("index"))
+
+        if not (0 <= kor <= 100 and 0 <= eng <= 100 and 0 <= mat <= 100):
+            flash(f"{sname} 행의 점수가 0~100 범위를 벗어났습니다.")
+            return redirect(url_for("index"))
+
         db.insert_score(sname, kor, eng, mat)
+
     db.recalc_rank()
+    flash("CSV 업로드가 완료되었습니다.")
     return redirect(url_for("index"))
 
 # Flask 서버 실행
