@@ -21,6 +21,19 @@
                 <input type="text" name="mat" required><br>
                 <button type="submit">입력하기</button>
             </form>
+            <h3>과목별 평균</h3>
+            <table border="1">
+                <tr>
+                    <td>국어: {{ means.kor }}</td>
+                    <td>영어: {{ means.eng }}</td>
+                    <td>수학: {{ means.mat }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <img src="{{ img_url }}" alt="과목별 평균 그래프"  style="width: 500px; height: auto;">
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="right content">
             <h3>전체 성적</h3>
