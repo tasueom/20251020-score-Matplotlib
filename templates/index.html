@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>성적 프로그램</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/check.js') }}"></script>
 </head>
 <body>
     <h2>성적 프로그램</h2>
@@ -13,7 +14,7 @@
             <div class="input_part">
                 <div class="form_input">
                     <h3>성적 입력하기</h3>
-                    <form method="post" action="{{url_for('add_score')}}">
+                    <form method="post" action="{{url_for('add_score')}}" onsubmit="return checkScore(this)">
                         이름
                         <input type="text" name="sname" required><br>
                         국어
